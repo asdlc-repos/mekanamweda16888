@@ -1,0 +1,29 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  width: 100%;
+  padding: 1rem;
+}
+
+.message {
+  font-size: 2rem;
+  font-weight: 700;
+  text-align: center;
+  color: #1a1a1a;
+}
+
+/* Mobile (≥320px) */
+@media (max-width: 767px) {
+  .message {
+    font-size: 2rem;
+  }
+}
+
+/* Desktop (≥1024px) */
+@media (min-width: 1024px) {
+  .message {
+    font-size: 3rem;
+  }
+}
