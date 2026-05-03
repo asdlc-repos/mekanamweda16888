@@ -1,0 +1,26 @@
+{
+  "overview": "A simple client-server architecture consisting of a static frontend web application that displays 'Hello World'. The frontend is a single-page application that serves static HTML content directly to visitors. No backend service is required as this is a pure static content display application.",
+  "requirements": [
+    "The application must display the text 'Hello World' to all visitors",
+    "The page must load and display the message immediately without user interaction",
+    "The application must be accessible via web browsers on desktop devices",
+    "The application must be accessible via web browsers on mobile devices",
+    "The application must allow visitors to refresh the page and continue displaying the message",
+    "The application must respond with a 200 OK status for the root path",
+    "The application must include a /health endpoint for health checks"
+  ],
+  "components": [
+    {
+      "name": "hello-world-web",
+      "componentType": "web-app",
+      "language": "TypeScript / React",
+      "dependsOn": [],
+      "entrypoint": "deployment/web-application",
+      "buildpack": "docker",
+      "appPath": "/hello-world-web",
+      "openAPISpec": "openapi: 3.0.3\ninfo:\n  title: Hello World Web Application\n  version: 1.0.0\n  description: A simple static web application that displays Hello World\npaths:\n  /:\n    get:\n      summary: Serve the main Hello World page\n      description: Returns the HTML page displaying Hello World message\n      responses:\n        '200':\n          description: Successfully returns the Hello World page\n          content:\n            text/html:\n              schema:\n                type: string\n  /health:\n    get:\n      summary: Health check endpoint\n      description: Returns health status of the web application\n      responses:\n        '200':\n          description: Application is healthy\n          content:\n            application/json:\n              schema:\n                type: object\n                properties:\n                  status:\n                    type: string\n                    example: ok",
+      "componentAgentInstructions": "Implement a React-based single-page application that displays 'Hello World'. Use TypeScript for type safety. Setup: Initialize a React app with TypeScript support using Vite or Create React App. The application should render a single centered text element containing 'Hello World'. Styling: Use CSS to center the text both horizontally and vertically on the page. Make the text large and readable (minimum 32px font size). Ensure responsive design that works on mobile (viewport width \u003e= 320px) and desktop (viewport width \u003e= 1024px). Use a clean, modern font. Health Endpoint: Implement a /health route that returns JSON {\"status\":\"ok\"} with 200 status. Server: Configure a production-ready static file server (use serve or nginx) that listens on port 8080. Dockerfile: Create a multi-stage build - stage 1 builds the React app (npm install, npm run build), stage 2 uses nginx:alpine to serve the built static files from /usr/share/nginx/html. Configure nginx to listen on port 8080 and serve index.html for all routes. Add a /health location in nginx config that returns the health check JSON. The container must expose port 8080. Testing: Ensure the page loads instantly, text is visible immediately, and refresh works correctly. Verify mobile and desktop responsiveness."
+    }
+  ],
+  "sourceSpec": "spec-v1"
+}
